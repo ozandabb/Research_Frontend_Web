@@ -1,4 +1,5 @@
 import StudentDashboard from '../Views/Student/Student.Dashboard';
+import StudentSurvey from '../Views/Student/Student.Survey';
 import SignIn from '../Views/SignIn/Login';
 
 let StudentRoutes = [
