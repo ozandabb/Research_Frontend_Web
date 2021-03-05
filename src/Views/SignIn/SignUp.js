@@ -415,7 +415,7 @@ class SignUp extends React.Component {
                                     <div className="row" style={{paddingTop:'10px', paddingLeft:'20px', paddingRight:'20px', paddingBottom:'20px'}}> 
                                         <div className="col-6 mt-3 mb-1" >
                                         <button type="submit" style={{backgroundColor:"#475466" , color:"#FFFFFF",  cursor: 'pointer'}} className="btn mt-2 btn btn-sm px-5">Submit</button>
-                                        <button type="button" style={{backgroundColor:"red",marginLeft:"10px", color:"#FFFFFF", cursor: 'pointer'}} onClick={() => this.clear()} className="btn mt-2 btn btn-sm px-5">Cancel</button>
+                                        <button type="button" style={{backgroundColor:"red",marginLeft:"10px", color:"#FFFFFF", cursor: 'pointer'}} onClick={() => this.clearStudent()} className="btn mt-2 btn btn-sm px-5">Cancel</button>
                                         </div>
                                     </div>
 
@@ -589,7 +589,7 @@ class SignUp extends React.Component {
                                     <div className="row" style={{paddingTop:'10px', paddingLeft:'20px', paddingRight:'20px', paddingBottom:'20px'}}> 
                                         <div className="col-6 mt-3 mb-1" >
                                         <button type="submit" style={{backgroundColor:"#475466" , color:"#FFFFFF",  cursor: 'pointer'}} className="btn mt-2 btn btn-sm px-5">Submit</button>
-                                        <button type="button" style={{backgroundColor:"red",marginLeft:"10px", color:"#FFFFFF", cursor: 'pointer'}} onClick={() => this.clear()} className="btn mt-2 btn btn-sm px-5">Cancel</button>
+                                        <button type="button" style={{backgroundColor:"red",marginLeft:"10px", color:"#FFFFFF", cursor: 'pointer'}} onClick={() => this.clearClient()} className="btn mt-2 btn btn-sm px-5">Cancel</button>
                                         </div>
                                     </div>
 
