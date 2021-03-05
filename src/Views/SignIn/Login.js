@@ -61,7 +61,11 @@ class Login extends React.Component {
             if(status.data.loginRole === 1 ){
                 this.props.history.push("/AdminDashboard");
             }else if(status.data.loginRole === 2 ){
-                this.props.history.push("/StudentDashboard");
+                if(status.data.loginCount == 1){
+                    this.props.history.push("/StudentSurvey");
+                }else{
+                    this.props.history.push("/StudentDashboard");
+                }
             }else if(status.data.loginRole === 3 ){
                 this.props.history.push("/StaffDashboard");
             }else if(status.data.loginRole === 4 ){

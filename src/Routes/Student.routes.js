@@ -15,6 +15,12 @@ let StudentRoutes = [
     component: StudentDashboard,
     exact: true,
   },
+  {
+    path: "/StudentSurvey",
+    name: "StudentSurvey",
+    component: StudentSurvey,
+    exact: true,
+  }
   // {
   //   path: "/basic",
   //   name: "Basic",
