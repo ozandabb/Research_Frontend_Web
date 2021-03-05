@@ -1,4 +1,5 @@
 import StudentDashboard from '../Views/Student/Student.Dashboard';
+import StudentSurvey from '../Views/Student/Student.Survey';
 import SignIn from '../Views/SignIn/Login';
 
 let StudentRoutes = [
@@ -15,6 +16,12 @@ let StudentRoutes = [
     component: StudentDashboard,
     exact: true,
   },
+  {
+    path: "/StudentSurvey",
+    name: "StudentSurvey",
+    component: StudentSurvey,
+    exact: true,
+  }
   // {
   //   path: "/basic",
   //   name: "Basic",
