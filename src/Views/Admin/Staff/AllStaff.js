@@ -1,14 +1,15 @@
 import React from "react";
-import ADMINSidebar from "./sidebar.admin";
+import ADMINSidebar from "../sidebar.admin";
 
-class AdminDash extends React.Component {
+class AllStaff extends React.Component {
 
     render() {
         return (
             <div className="bg-light wd-wrapper">
-                <ADMINSidebar activemenu={'DASHBOARD'} />
+                <ADMINSidebar activemenu={'STAFF'} submenu={'ALL_STAFF'} />
                     <div className="wrapper-wx" style={{height:"100hv"}}>
                         <div className="container-fluid">
+                            <h1>All Staff</h1>
 
                         </div>
                     </div>
@@ -17,4 +18,4 @@ class AdminDash extends React.Component {
     }
 
 }
-export default AdminDash;
+export default AllStaff;

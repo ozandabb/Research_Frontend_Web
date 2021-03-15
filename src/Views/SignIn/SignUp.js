@@ -1,5 +1,5 @@
 import React from "react";
-import {FormInput  } from '../../Components/Form';
+import {FormInput ,FormSelect } from '../../Components/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import {  Button, Card , Form , Image , OverlayTrigger , Tooltip , Tab } from 'react-bootstrap';
@@ -31,6 +31,7 @@ class SignUp extends React.Component {
             password:'',
             gpa:'',
             specialization:'',
+            speciltionStore:'',
 
             CfirstName:'',
             ClastName:'',
@@ -58,28 +59,36 @@ class SignUp extends React.Component {
     onFormSubmitStudent = async (e) => {
         e.preventDefault();
 
-        var dataStudent = {
-            firstName: this.state.firstName,
-            lastName : this.state.lastName,
-            initials: this.state.initials,
-            dob: this.state.dob,
-            phoneNo: this.state.phoneNo,
-            gender: this.state.gender,
-            address: this.state.address,
-            studentId: this.state.studentId,
-            currentYear:this.state.currentYear,
-            currentSemester:this.state.currentSemester, 
-            facultyGroup:this.state.facultyGroup,
-            email:this.state.email,
-            password:this.state.password,
-            roleId:2,
-            gpa:this.state.gpa,
-            specialization:this.state.specialization, 
+        if (this.validateStudent()) {
+            if(this.state.specialization == "IT"){
+                this.state.speciltionStore= 1
+            }
+            else if(this.state.specialization == "SE"){
+                this.state.speciltionStore= 2
+            }
+            var dataStudent = {
+                firstName: this.state.firstName,
+                lastName : this.state.lastName,
+                initials: this.state.initials,
+                dob: this.state.dob,
+                phoneNo: this.state.phoneNo,
+                gender: this.state.gender,
+                address: this.state.address,
+                studentId: this.state.studentId,
+                currentYear:this.state.currentYear,
+                currentSemester:this.state.currentSemester, 
+                facultyGroup:this.state.facultyGroup,
+                email:this.state.email,
+                password:this.state.password,
+                roleId:2,
+                gpa:this.state.gpa,
+                specialization: this.state.speciltionStore,
+            }
+
+            const resultStudent = await STUDENT_CONTROLLER.addStudent( dataStudent ,this.props.auth.token );
+
+            console.log("student", resultStudent);
         }
-
-        const resultStudent = await STUDENT_CONTROLLER.addStudent( dataStudent ,this.props.auth.token );
-
-        console.log("student", resultStudent);
 
     }
 
@@ -87,25 +96,27 @@ class SignUp extends React.Component {
     onFormSubmitClient = async (e) => {
         e.preventDefault();
 
-        var dataClient = {
-            firstName:this.state.CfirstName,
-            lastName:this.state.ClastName,
-            initials: this.state.Cinitials,
-            dob:this.state.Cdob,
-            phoneNo:this.state.CphoneNo,
-            gender:this.state.Cgender,
-            address:this.state.Caddress,
-            email:this.state.Cemail,
-            password:this.state.Cpassword,
-            roleId:4,
-            companyName:this.state.CcompanyName,
+        if (this.validateClient()) {
+            var dataClient = {
+                firstName:this.state.CfirstName,
+                lastName:this.state.ClastName,
+                initials: this.state.Cinitials,
+                dob:this.state.Cdob,
+                phoneNo:this.state.CphoneNo,
+                gender:this.state.Cgender,
+                address:this.state.Caddress,
+                email:this.state.Cemail,
+                password:this.state.Cpassword,
+                roleId:4,
+                companyName:this.state.CcompanyName,
+            }
+
+            console.log("Client data", dataClient);
+
+            const resultClient = await CLIENT_CONTROLLER.addClient( dataClient ,this.props.auth.token );
+
+            console.log("Client result", resultClient);
         }
-
-        console.log("Client data", dataClient);
-
-        const resultClient = await CLIENT_CONTROLLER.addClient( dataClient ,this.props.auth.token );
-
-        console.log("Client result", resultClient);
 
     }
 
@@ -170,6 +181,9 @@ class SignUp extends React.Component {
 
 
     render() {
+
+        const {errors } = this.state;
+
         return (
             // <div style={{height:'100hv'}}>
             <div class="container"  >
@@ -184,7 +198,7 @@ class SignUp extends React.Component {
                             <h3>Signup Portal</h3>
                             <span className="text-muted small"><h6>Student and Client can signup by giving relevant information</h6></span>
                         </div>
-                        {/* =====================================student and client buttons */}
+                        {/* =====================================student and client buttons ========================*/}
                         <div className='row' style={{marginTop:'50px'}}>
                             <div className='col-sm'>
                                 <button type="button" onClick={() => this.change_student_toggle()} class="btn btn-primary" style={{paddingLeft:'50px', paddingRight:'50px'}}>Student</button>
@@ -192,8 +206,9 @@ class SignUp extends React.Component {
                             </div>
                         </div>
 
-
-                        {/*==================================== student regidtration form start here ==============================*/}
+                        {/*=======================================================================================================*/}
+                        {/*==================================== student regidtration form start here =============================*/}
+                        {/*=======================================================================================================*/}
                         <div style={{ display: this.state.RegisterStudentStates == true ? 'block' : 'none'}}>
                             <Card className="col-sm shadow" style={{ marginTop:'20px'}}>
                                 <form onSubmit={(e) => this.onFormSubmitStudent(e)}>
@@ -213,8 +228,8 @@ class SignUp extends React.Component {
                                                         name="initials"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.initials && errors.initials.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.initials}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -224,8 +239,8 @@ class SignUp extends React.Component {
                                                         name="firstName"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.firstName && errors.firstName.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.firstName}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -235,8 +250,8 @@ class SignUp extends React.Component {
                                                         name="lastName"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.lastName && errors.lastName.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.lastName}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -244,15 +259,15 @@ class SignUp extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-sm mt-1 mb-1" >
-                                                    <FormInput 
-                                                        label={'Gender *'}
-                                                        placeholder={"Enter gender"}
-                                                        value={this.state.gender}
-                                                        name="gender"
+                                                    <FormSelect 
+                                                        label={'Gender'}
+                                                        options={GENDER}
+                                                        selected={this.state.gender}
                                                         onChange={this.formValueChange}
+                                                        name="gender"
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.gender && errors.gender.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.gender}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -263,8 +278,8 @@ class SignUp extends React.Component {
                                                         name="dob"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.dob && errors.dob.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.dob}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -275,8 +290,8 @@ class SignUp extends React.Component {
                                                         name="phoneNo"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.phoneNo && errors.phoneNo.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.phoneNo}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -290,8 +305,8 @@ class SignUp extends React.Component {
                                                     name="address"
                                                     onChange={this.formValueChange}
                                                 />
-                                                {/* {errors.name && errors.name.length > 0 &&
-                                                <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                {errors.address && errors.address.length > 0 &&
+                                                <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.address}</h4>}
                                             </div>
                                         </div>
                                     </div>
@@ -311,8 +326,8 @@ class SignUp extends React.Component {
                                                         name="studentId"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.studentId && errors.studentId.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.studentId}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -322,19 +337,19 @@ class SignUp extends React.Component {
                                                         name="facultyGroup"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.facultyGroup && errors.facultyGroup.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.facultyGroup}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
-                                                    <FormInput 
+                                                     <FormSelect 
                                                         label={'Specialization *'}
-                                                        placeholder={"Enter last Email"}
-                                                        value={this.state.specialization}
-                                                        name="specialization"
+                                                        options={SPECIALIZATION}
+                                                        selected={this.state.specialization}
                                                         onChange={this.formValueChange}
+                                                        name="specialization"
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.specialization && errors.specialization.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.specialization}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -343,26 +358,27 @@ class SignUp extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-sm mt-1 mb-1" >
-                                                    <FormInput 
+                                                    <FormSelect 
                                                         label={'Current Year *'}
-                                                        placeholder={"Enter current year"}
-                                                        value={this.state.currentYear}
-                                                        name="currentYear"
+                                                        options={CURRENT_YEAR}
+                                                        selected={this.state.currentYear}
                                                         onChange={this.formValueChange}
+                                                        name="currentYear"
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.currentYear && errors.currentYear.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.currentYear}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
-                                                    <FormInput 
+
+                                                    <FormSelect 
                                                         label={'Current Semester *'}
-                                                        placeholder={"Enter current semester"}
-                                                        value={this.state.currentSemester}
-                                                        name="currentSemester"
+                                                        options={CURRENT_SEMESTER}
+                                                        selected={this.state.currentSemester}
                                                         onChange={this.formValueChange}
+                                                        name="currentSemester"
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.currentSemester && errors.currentSemester.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.currentSemester}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -372,8 +388,8 @@ class SignUp extends React.Component {
                                                         name="gpa"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.gpa && errors.gpa.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.gpa}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -389,24 +405,25 @@ class SignUp extends React.Component {
                                                     <FormInput 
                                                         label={'Email *'}
                                                         placeholder={"Enter your valid email"}
-                                                        type="email"
-                                                        //value={this.state.email}
+                                                        type="Email"
+                                                        value={this.state.email}
                                                         name="email"
-                                                        //onChange={this.formValueChange}
+                                                        onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.email && errors.email.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
                                                         label={'Password *'}
+                                                        type="password"
                                                         placeholder={"Enter password"}
-                                                        //value={this.state.password}
+                                                        value={this.state.password}
                                                         name="password"
-                                                        //onChange={this.formValueChange}
+                                                        onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.password && errors.password.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.password}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -423,11 +440,16 @@ class SignUp extends React.Component {
                                 </form>
                             </Card>
                         </div>
+                        {/*=======================================================================================================*/}
                         {/*==================================== student regidtration form ends here ==============================*/}
+                        {/*=======================================================================================================*/}
 
 
 
+
+                        {/*=======================================================================================================*/}
                         {/*==================================== Client regidtration form start here ==============================*/}
+                        {/*=======================================================================================================*/}
                         <div style={{ display: this.state.RegisterClientStates == true ? 'block' : 'none'}}>
                             <Card className="col-sm shadow" style={{ marginTop:'20px'}}>
                                 <form onSubmit={(e) => this.onFormSubmitClient(e)}>
@@ -447,8 +469,8 @@ class SignUp extends React.Component {
                                                         name="Cinitials"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.Cinitials && errors.Cinitials.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Cinitials}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -458,8 +480,8 @@ class SignUp extends React.Component {
                                                         name="CfirstName"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.CfirstName && errors.CfirstName.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.CfirstName}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -469,8 +491,8 @@ class SignUp extends React.Component {
                                                         name="ClastName"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.ClastName && errors.ClastName.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.ClastName}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -478,15 +500,15 @@ class SignUp extends React.Component {
 
                                             <div className="row">
                                                 <div className="col-sm mt-1 mb-1" >
-                                                    <FormInput 
+                                                    <FormSelect 
                                                         label={'Gender *'}
-                                                        placeholder={"Enter gender"}
-                                                        value={this.state.Cgender}
-                                                        name="Cgender"
+                                                        options={SPECIALIZATION}
+                                                        selected={this.state.Cgender}
                                                         onChange={this.formValueChange}
+                                                        name="Cgender"
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.Cgender && errors.Cgender.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Cgender}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -497,8 +519,8 @@ class SignUp extends React.Component {
                                                         name="Cdob"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.Cdob && errors.Cdob.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Cdob}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
@@ -509,8 +531,8 @@ class SignUp extends React.Component {
                                                         name="CphoneNo"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.email && errors.email.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.email}</h4>} */}
+                                                    {errors.CphoneNo && errors.CphoneNo.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.CphoneNo}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -524,8 +546,8 @@ class SignUp extends React.Component {
                                                     name="Caddress"
                                                     onChange={this.formValueChange}
                                                 />
-                                                {/* {errors.name && errors.name.length > 0 &&
-                                                <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                {errors.Caddress && errors.Caddress.length > 0 &&
+                                                <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Caddress}</h4>}
                                             </div>
                                         </div>
                                     </div>
@@ -545,8 +567,8 @@ class SignUp extends React.Component {
                                                         name="CcompanyName"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.CcompanyName && errors.CcompanyName.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.CcompanyName}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -568,19 +590,20 @@ class SignUp extends React.Component {
                                                         name="Cemail"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.Cemail && errors.Cemail.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Cemail}</h4>}
                                                 </div>
                                                 <div className="col-sm mt-1 mb-1" >
                                                     <FormInput 
                                                         label={'Password *'}
+                                                        type="password"
                                                         placeholder={"Enter password"}
                                                         value={this.state.Cpassword}
                                                         name="Cpassword"
                                                         onChange={this.formValueChange}
                                                     />
-                                                    {/* {errors.name && errors.name.length > 0 &&
-                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.name}</h4>} */}
+                                                    {errors.Cpassword && errors.Cpassword.length > 0 &&
+                                                    <h4 className="small text-danger mt-2 font-weight-bold mb-0">{errors.Cpassword}</h4>}
                                                 </div>
                                         </div>
                                     </div>
@@ -597,7 +620,9 @@ class SignUp extends React.Component {
                                 </form>
                             </Card>
                         </div>
-                        {/*==================================== Client regidtration form ends here ==============================*/}
+                        {/*=======================================================================================================*/}
+                        {/*==================================== Client regidtration form ends here ===============================*/}
+                        {/*=======================================================================================================*/}
 
 
 
@@ -624,7 +649,241 @@ class SignUp extends React.Component {
         )
     }
 
+    validateStudent = () => {
+        let { errors, firstName,initials, lastName, phoneNo, dob , gender, address, studentId,
+             currentYear, currentSemester, facultyGroup, email, password, gpa, specialization} = this.state;
+        let count = 0;
+
+        if (firstName.length === 0) {
+            errors.firstName =  'Firstname can not be empty !'
+            count++
+        } else {
+            errors.firstName = ''
+        }
+
+        if (lastName.length === 0) {
+            errors.lastName =  'Lastname can not be empty !'
+            count++
+        } else {
+            errors.lastName = ''
+        }
+
+        if (initials.length === 0) {
+            errors.initials =  'Initials can not be empty !'
+            count++
+        } else {
+            errors.initials = ''
+        }
+
+        if (dob.length === 0) {
+            errors.dob =  'birthday can not be empty !'
+            count++
+        } else {
+            errors.dob = ''
+        }
+
+        if (phoneNo.length === 0) {
+            errors.phoneNo = "Contact Number can not be empty"
+            count++
+        } else {
+            if(phoneNo.length < 10){
+                errors.phoneNo = "Need 10 Digits for a number"
+                count++
+            }else{
+                errors.phoneNo = ""
+            }
+        }
+
+        if (address.length === 0) {
+            errors.address =  'Address can not be empty !'
+            count++
+        } else {
+            errors.address = ''
+        }
+
+        if (gender.length === 0) {
+            errors.gender =  'Gender can not be empty !'
+            count++
+        } else {
+            errors.gender = ''
+        }
+
+        if (studentId.length === 0) {
+            errors.studentId =  'Student ID can not be empty !'
+            count++
+        } else {
+            errors.studentId = ''
+        }
+
+        if (currentYear.length === 0) {
+            errors.currentYear =  'Current year can not be empty !'
+            count++
+        } else {
+            errors.currentYear = ''
+        }
+
+        if (currentSemester.length === 0) {
+            errors.currentSemester =  'Current semester ID can not be empty !'
+            count++
+        } else {
+            errors.currentSemester = ''
+        }
+
+        if (facultyGroup.length === 0) {
+            errors.facultyGroup =  'Faculty Group can not be empty !'
+            count++
+        } else {
+            errors.facultyGroup = ''
+        }
+
+        if (email.length === 0) {
+            errors.email =  'Email can not be empty !'
+            count++
+        } else {
+            errors.email = ''
+        }
+
+        if (password.length === 0) {
+            errors.password =  'Password can not be empty !'
+            count++
+        } else {
+            errors.password = ''
+        }
+
+        if (gpa.length === 0) {
+            errors.gpa =  'GPA can not be empty !'
+            count++
+        } else {
+            errors.gpa = ''
+        }
+
+        if (specialization.length === 0) {
+            errors.specialization =  'Specialization can not be empty !'
+            count++
+        } else {
+            errors.specialization = ''
+        }
+
+        this.setState({ errors });
+        return count == 0;
+    }
+
+    validateClient = () => {
+        let { errors, CfirstName, ClastName, Cinitials, Cdob, CphoneNo, Cgender, Caddress, Cemail, Cpassword, CcompanyName} = this.state;
+        let count = 0;
+
+        if (CfirstName.length === 0) {
+            errors.CfirstName =  'Firstname can not be empty !'
+            count++
+        } else {
+            errors.CfirstName = ''
+        }
+
+        if (ClastName.length === 0) {
+            errors.ClastName =  'Lastname can not be empty !'
+            count++
+        } else {
+            errors.ClastName = ''
+        }
+
+        if (Cinitials.length === 0) {
+            errors.Cinitials =  'Initials can not be empty !'
+            count++
+        } else {
+            errors.Cinitials = ''
+        }
+
+        if (Cdob.length === 0) {
+            errors.Cdob =  'birthday can not be empty !'
+            count++
+        } else {
+            errors.Cdob = ''
+        }
+
+        if (CphoneNo.length === 0) {
+            errors.CphoneNo = "Contact Number can not be empty"
+            count++
+        } else {
+            if(CphoneNo.length < 10){
+                errors.CphoneNo = "Need 10 Digits for a number"
+                count++
+            }else{
+                errors.CphoneNo = ""
+            }
+        }
+
+        if (Caddress.length === 0) {
+            errors.Caddress =  'Address can not be empty !'
+            count++
+        } else {
+            errors.Caddress = ''
+        }
+
+        if (Cgender.length === 0) {
+            errors.Cgender =  'Gender can not be empty !'
+            count++
+        } else {
+            errors.Cgender = ''
+        }
+
+        if (Cemail.length === 0) {
+            errors.Cemail =  'Email can not be empty !'
+            count++
+        } else {
+            errors.Cemail = ''
+        }
+
+        if (Cpassword.length === 0) {
+            errors.Cpassword =  'Password can not be empty !'
+            count++
+        } else {
+            errors.Cpassword = ''
+        }
+
+        if (CcompanyName.length === 0) {
+            errors.CcompanyName =  'Company name can not be empty !'
+            count++
+        } else {
+            errors.CcompanyName = ''
+        }
+
+        this.setState({ errors });
+        return count == 0;
+    }
+
 }
+
+const GENDER = [{ label : 'Select the Gender' ,value : 'NONE' } , 
+...['Male','Female'].map( i => {
+    return{
+        label :  i  ,
+         value : i 
+    }
+})];
+
+const SPECIALIZATION = [{ label : 'Select the Specialization' ,value : 'NONE' } , 
+...['IT','SE'].map( i => {
+    return{
+        label :  i  ,
+         value : i 
+    }
+})];
+
+const CURRENT_YEAR = [{ label : 'Select current year' ,value : 'NONE' } , 
+...[1,2,3,4].map( i => {
+    return{
+        label :  i  ,
+         value : i 
+    }
+})];
+
+const CURRENT_SEMESTER = [{ label : 'Select current semester ' ,value : 'NONE' } , 
+...[1,2].map( i => {
+    return{
+        label :  i  ,
+         value : i 
+    }
+})];
 
 const mapStateToProps = state => ({
     auth: state.auth || {},

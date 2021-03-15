@@ -1,6 +1,7 @@
 import AdminDashboard from '../Views/Admin/Admin.Dashboard';
 import SignIn from '../Views/SignIn/Login';
-
+import staffRegister from '../Views/Admin/Staff/StaffREgistration';
+import AllStaff from '../Views/Admin/Staff/AllStaff';
 let AdminRoutes = [
 
   {
@@ -15,12 +16,18 @@ let AdminRoutes = [
     component: AdminDashboard,
     exact: true,
   },
-  // {
-  //   path: "/basic",
-  //   name: "Basic",
-  //   component: Basic,
-  //   exact: true,
-  // },
+  {
+    path: "/Admin/staffRegister",
+    name: "staffRegister",
+    component: staffRegister,
+    exact: true,
+  },
+  {
+    path: "/Admin/AllStaff",
+    name: "AllStaff",
+    component: AllStaff,
+    exact: true,
+  },
  
 ];
 

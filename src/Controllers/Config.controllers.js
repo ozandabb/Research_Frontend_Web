@@ -1,4 +1,4 @@
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // import { confirmAlert } from "react-confirm-alert";
 
 class Config{
@@ -12,22 +12,22 @@ class Config{
   }
 
   // for toast messages
-//   setToast(msg){
-//     toast.info( msg, {
-//       hideProgressBar: true,
-//       closeOnClick: true,
-//       draggable: true,
-//     });
-//   }
+  setToast(msg){
+    toast.info( msg, {
+      hideProgressBar: true,
+      closeOnClick: true,
+      draggable: true,
+    });
+  }
 
-  //Toast for error display
-//   setErrorToast(msg){
-//     toast.error( msg, {
-//       hideProgressBar: true,
-//       closeOnClick: true,
-//       draggable: true,
-//     });
-//   }
+  // Toast for error display
+  setErrorToast(msg){
+    toast.error( msg, {
+      hideProgressBar: true,
+      closeOnClick: true,
+      draggable: true,
+    });
+  }
 
   //delete confirm alert
 //   setDeleteConfirmAlert(title , msg , confirm , cancel ){
