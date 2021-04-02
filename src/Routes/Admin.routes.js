@@ -28,6 +28,7 @@ let AdminRoutes = [
     component: AllStaff,
     exact: true,
   },
+
  
 ];
 

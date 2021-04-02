@@ -1,6 +1,8 @@
 import StudentDashboard from '../Views/Student/Student.Dashboard';
 import StudentSurvey from '../Views/Student/Student.Survey';
 import SignIn from '../Views/SignIn/Login';
+import StudentProfile from '../Views/Student/Profile.Student';
+
 
 let StudentRoutes = [
 
@@ -21,13 +23,13 @@ let StudentRoutes = [
     name: "StudentSurvey",
     component: StudentSurvey,
     exact: true,
-  }
-  // {
-  //   path: "/basic",
-  //   name: "Basic",
-  //   component: Basic,
-  //   exact: true,
-  // },
+  },
+  {
+    path: "/Student/Profile",
+    name: "StudentProfile",
+    component: StudentProfile,
+    exact: true,
+  },
  
 ];
 

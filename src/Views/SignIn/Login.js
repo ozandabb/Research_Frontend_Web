@@ -61,11 +61,12 @@ class Login extends React.Component {
             if(status.data.loginRole === 1 ){
                 this.props.history.push("/AdminDashboard");
             }else if(status.data.loginRole === 2 ){
-                if(status.data.loginCount == 1){
-                    this.props.history.push("/StudentSurvey");
-                }else{
-                    this.props.history.push("/StudentDashboard");
-                }
+                // if(status.data.loginCount == 1){
+                //     this.props.history.push("/StudentSurvey");
+                // }else{
+                //     this.props.history.push("/StudentDashboard");
+                // }
+                this.props.history.push("/StudentDashboard");
             }else if(status.data.loginRole === 3 ){
                 this.props.history.push("/StaffDashboard");
             }else if(status.data.loginRole === 4 ){
@@ -137,6 +138,12 @@ class Login extends React.Component {
                             <div className="text-center p-t-46 p-b-20">
 						        <span class="txt2">
                                     or <Link to="/SignUp">sign up</Link>
+                                </span>
+                            </div>
+
+                            <div className="text-center p-t-46 p-b-20">
+						        <span class="txt2">
+                                    or <Link to="/StudentSurvey">Sudent Survey</Link>
                                 </span>
                             </div>
                         </form>
