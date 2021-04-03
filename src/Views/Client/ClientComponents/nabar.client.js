@@ -50,7 +50,7 @@ class ClientNavbar extends React.Component {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="/Student/Profile">Account</Dropdown.Item>
+                            <Dropdown.Item href="/Client/Profile">Account</Dropdown.Item>
                             <Dropdown.Item href="#/action-2">Settings</Dropdown.Item>
                             <Dropdown.Item onClick={() => this.signoutuser()}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
