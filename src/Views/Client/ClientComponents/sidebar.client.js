@@ -18,7 +18,7 @@ class ClientSidebar extends React.Component {
         const { activemenu, submenu } = this.props;
 
         return (
-            <div className={`sidebar_wrap sidebar-top ${ side_bar_toggle ? "sidebar_active" : "" } shadow`} style={{marginTop:"6px"}} >
+            <div className={`sidebar_wrap sidebar-top ${ side_bar_toggle ? "sidebar_active" : "" } shadow`} style={{marginTop:"100px"}} >
                 <ProSidebar>
           <SidebarContent>
             <Menu iconShape="circle">
