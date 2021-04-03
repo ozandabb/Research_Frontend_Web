@@ -1,5 +1,6 @@
 import ClientDashboard from '../Views/Client/Client.Dashboard';
 import SignIn from '../Views/SignIn/Login';
+import ClientProfile from '../Views/Client/Profile.client';
 
 let ClientRoutes = [
 
@@ -15,12 +16,12 @@ let ClientRoutes = [
     component: ClientDashboard,
     exact: true,
   },
-  // {
-  //   path: "/basic",
-  //   name: "Basic",
-  //   component: Basic,
-  //   exact: true,
-  // },
+  {
+    path: "/Client/Profile",
+    name: "ClientProfile",
+    component: ClientProfile,
+    exact: true,
+  },
  
 ];
 
