@@ -1,6 +1,6 @@
 import React from "react";
 import ClientNavbar from "./ClientComponents/nabar.client";
-import ADMINSidebar from "./ClientComponents/sidebar.client";
+import ClientSidebar from "./ClientComponents/sidebar.client";
 import ProfileLogo from '../../Asserts/Images/profileLogo.png'
 import {FormInput ,FormSelect } from '../../Components/Form';
 import { connect } from 'react-redux';
@@ -13,8 +13,8 @@ class ClientProfile extends React.Component {
             <div >
             <ClientNavbar />
                 <div style={{marginTop:"80px"}}>
-                <ADMINSidebar activemenu={'ACCOUNT'} />
-                    <div className="wrapper-wx">
+                <ClientSidebar activemenu={'ACCOUNT'} />
+                <div className="wrapper-wx">
                         <div className="container-fluid">
 
                         <div className="row">
