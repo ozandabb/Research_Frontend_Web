@@ -37,7 +37,7 @@ class StudentNavbar extends React.Component {
                         <a class="nav-link active" aria-current="page" href="/StudentDashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Projects</a>
+                        <a class="nav-link" href="/Student/Projects">Projects</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Find a Client</a>
