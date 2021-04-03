@@ -1,6 +1,6 @@
 import React from "react";
 import StudentNavbar from "./StudentComponents/Student.navbar";
-import ADMINSidebar from "./StudentComponents/sidebar.Profile";
+import StudentSidebar from "./StudentComponents/StudentSidebar";
 import ProfileLogo from '../../Asserts/Images/profileLogo.png'
 import {FormInput ,FormSelect } from '../../Components/Form';
 import { connect } from 'react-redux';
@@ -10,10 +10,10 @@ class StudentProfile extends React.Component {
 
     render() {
         return (
-            <div >
-            <StudentNavbar />
-                <div style={{marginTop:"80px"}}>
-                <ADMINSidebar activemenu={'ACCOUNT'} />
+            <div className="bg-light wd-wrapper">
+            {/* <StudentNavbar /> */}
+                {/* <div style={{marginTop:"80px"}}> */}
+                <StudentSidebar activemenu={'ACCOUNT'} />
                     <div className="wrapper-wx">
                         <div className="container-fluid">
 
@@ -249,7 +249,7 @@ class StudentProfile extends React.Component {
 
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
         )
     }
