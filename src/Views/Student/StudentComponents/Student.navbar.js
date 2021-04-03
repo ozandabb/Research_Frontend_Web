@@ -40,7 +40,7 @@ class StudentNavbar extends React.Component {
                         <a class="nav-link" href="#">Projects</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="#">Find a Client</a>
                         </li>
                     </ul>
 
