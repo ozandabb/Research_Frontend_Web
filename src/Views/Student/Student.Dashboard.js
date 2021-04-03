@@ -7,13 +7,13 @@ class StudentDash extends React.Component {
         return (
             <div style={{width:"100%"}}>
             <StudentNavbar />
-                <div className="d-none d-lg-block" style={{width:"25%",paddingTop:"100px",display: "table-cell", paddingLeft:"20px",height:"100hv", paddingRight:"20px", float:"left",  position:"fixed"}}>
+                <div className="d-none d-lg-block" style={{width:"25%",paddingTop:"100px",display: "table-cell", paddingLeft:"40px",height:"100hv", paddingRight:"20px", float:"left",  position:"fixed"}}>
                     <div className="row">
                         <div className="col-sm-8" style={{top:"5px"}}>
                             <h6>Your Projects</h6>
                         </div>
                         <div className="col-sm-4">
-                            <button type="submit" style={{paddingLeft:"20px", justifyContent:"right",paddingRight:"20px",marginRight:"0px", color:"#FFFFFF",  cursor: 'pointer'}} className="btn btn-success btn btn-sm ">New</button>
+                            <button type="submit" className="btn btn-success">New</button>
                         </div>
                     </div>
                     <div className="row" style={{paddingLeft:"15px",marginRight:"20px" ,marginTop:"10px"}}>

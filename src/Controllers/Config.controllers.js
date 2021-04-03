@@ -6,7 +6,7 @@ class Config{
     //backend server details
     this.host = "http://127.0.0.1:";
     // this.host = "http://saleserp-env.eba-u2mkdt2x.us-east-2.elasticbeanstalk.com";
-    this.port = "8080";
+    this.port = "8888";
     // this.port = "";
     this.password = "";
   }
