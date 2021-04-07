@@ -7,6 +7,13 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
 class ClientProfile extends React.Component {
+    constructor(props) {
+        super(props);
+            this.state = {
+        };
+
+        console.log("client ge props",this.props);
+    }
 
     render() {
         return (
