@@ -41,7 +41,7 @@ class SidebarStudent extends React.Component {
           </span>
 
           <div style={{justifyContent:"center"}} className="d-none d-lg-block">
-            <h5 style={{color:"#FFFFFF"}}>Human Resources Management Executive </h5>
+            <h5 style={{color:"#FFFFFF"}}> </h5>
           </div>
 
 
